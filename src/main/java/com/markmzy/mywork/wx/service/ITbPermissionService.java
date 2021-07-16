@@ -1,18 +1,19 @@
 package com.markmzy.mywork.wx.service;
 
-import com.markmzy.mywork.wx.model.TbPermission;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.markmzy.mywork.wx.model.TbPermission;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author Zhiyue Ma
  * @since 2021-07-16
  */
-public interface ITbPermissionService extends IService<TbPermission> {
+public interface ITbPermissionService extends IService<TbPermission>
+{
 
     /**
      * 查询分页数据
@@ -26,7 +27,7 @@ public interface ITbPermissionService extends IService<TbPermission> {
     /**
      * 添加
      *
-     * @param tbPermission 
+     * @param tbPermission
      * @return int
      */
     int add(TbPermission tbPermission);
@@ -42,7 +43,7 @@ public interface ITbPermissionService extends IService<TbPermission> {
     /**
      * 修改
      *
-     * @param tbPermission 
+     * @param tbPermission
      * @return int
      */
     int updateData(TbPermission tbPermission);

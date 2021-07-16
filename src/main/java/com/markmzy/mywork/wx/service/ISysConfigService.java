@@ -1,18 +1,19 @@
 package com.markmzy.mywork.wx.service;
 
-import com.markmzy.mywork.wx.model.SysConfig;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.markmzy.mywork.wx.model.SysConfig;
 
 /**
  * <p>
- *  服务类
+ * 系统设置表 服务类
  * </p>
  *
  * @author Zhiyue Ma
  * @since 2021-07-16
  */
-public interface ISysConfigService extends IService<SysConfig> {
+public interface ISysConfigService extends IService<SysConfig>
+{
 
     /**
      * 查询分页数据
@@ -26,7 +27,7 @@ public interface ISysConfigService extends IService<SysConfig> {
     /**
      * 添加
      *
-     * @param sysConfig 
+     * @param sysConfig
      * @return int
      */
     int add(SysConfig sysConfig);
@@ -42,7 +43,7 @@ public interface ISysConfigService extends IService<SysConfig> {
     /**
      * 修改
      *
-     * @param sysConfig 
+     * @param sysConfig
      * @return int
      */
     int updateData(SysConfig sysConfig);

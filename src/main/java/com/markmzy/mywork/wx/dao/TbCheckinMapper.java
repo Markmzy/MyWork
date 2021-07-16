@@ -1,7 +1,7 @@
 package com.markmzy.mywork.wx.dao;
 
-import com.markmzy.mywork.wx.model.TbCheckin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.markmzy.mywork.wx.model.TbCheckin;
 
 /**
  * <p>
@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author Zhiyue Ma
  * @since 2021-07-16
  */
-public interface TbCheckinMapper extends BaseMapper<TbCheckin> {
+public interface TbCheckinMapper extends BaseMapper<TbCheckin>
+{
 
 }

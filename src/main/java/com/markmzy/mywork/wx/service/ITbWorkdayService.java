@@ -1,18 +1,19 @@
 package com.markmzy.mywork.wx.service;
 
-import com.markmzy.mywork.wx.model.TbWorkday;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.markmzy.mywork.wx.model.TbWorkday;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author Zhiyue Ma
  * @since 2021-07-16
  */
-public interface ITbWorkdayService extends IService<TbWorkday> {
+public interface ITbWorkdayService extends IService<TbWorkday>
+{
 
     /**
      * 查询分页数据
@@ -26,7 +27,7 @@ public interface ITbWorkdayService extends IService<TbWorkday> {
     /**
      * 添加
      *
-     * @param tbWorkday 
+     * @param tbWorkday
      * @return int
      */
     int add(TbWorkday tbWorkday);
@@ -42,7 +43,7 @@ public interface ITbWorkdayService extends IService<TbWorkday> {
     /**
      * 修改
      *
-     * @param tbWorkday 
+     * @param tbWorkday
      * @return int
      */
     int updateData(TbWorkday tbWorkday);

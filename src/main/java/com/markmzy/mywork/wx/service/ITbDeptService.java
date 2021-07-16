@@ -1,18 +1,19 @@
 package com.markmzy.mywork.wx.service;
 
-import com.markmzy.mywork.wx.model.TbDept;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.markmzy.mywork.wx.model.TbDept;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author Zhiyue Ma
  * @since 2021-07-16
  */
-public interface ITbDeptService extends IService<TbDept> {
+public interface ITbDeptService extends IService<TbDept>
+{
 
     /**
      * 查询分页数据
@@ -26,7 +27,7 @@ public interface ITbDeptService extends IService<TbDept> {
     /**
      * 添加
      *
-     * @param tbDept 
+     * @param tbDept
      * @return int
      */
     int add(TbDept tbDept);
@@ -42,7 +43,7 @@ public interface ITbDeptService extends IService<TbDept> {
     /**
      * 修改
      *
-     * @param tbDept 
+     * @param tbDept
      * @return int
      */
     int updateData(TbDept tbDept);

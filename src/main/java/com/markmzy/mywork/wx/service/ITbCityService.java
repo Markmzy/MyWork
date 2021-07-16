@@ -1,8 +1,8 @@
 package com.markmzy.mywork.wx.service;
 
-import com.markmzy.mywork.wx.model.TbCity;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.markmzy.mywork.wx.model.TbCity;
 
 /**
  * <p>
@@ -12,7 +12,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  * @author Zhiyue Ma
  * @since 2021-07-16
  */
-public interface ITbCityService extends IService<TbCity> {
+public interface ITbCityService extends IService<TbCity>
+{
 
     /**
      * 查询疫情城市列表分页数据

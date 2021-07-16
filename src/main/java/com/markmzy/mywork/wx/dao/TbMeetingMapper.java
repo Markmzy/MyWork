@@ -1,7 +1,7 @@
 package com.markmzy.mywork.wx.dao;
 
-import com.markmzy.mywork.wx.model.TbMeeting;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.markmzy.mywork.wx.model.TbMeeting;
 
 /**
  * <p>
@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author Zhiyue Ma
  * @since 2021-07-16
  */
-public interface TbMeetingMapper extends BaseMapper<TbMeeting> {
+public interface TbMeetingMapper extends BaseMapper<TbMeeting>
+{
 
 }

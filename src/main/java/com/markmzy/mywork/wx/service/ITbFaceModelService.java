@@ -1,18 +1,19 @@
 package com.markmzy.mywork.wx.service;
 
-import com.markmzy.mywork.wx.model.TbFaceModel;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.markmzy.mywork.wx.model.TbFaceModel;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author Zhiyue Ma
  * @since 2021-07-16
  */
-public interface ITbFaceModelService extends IService<TbFaceModel> {
+public interface ITbFaceModelService extends IService<TbFaceModel>
+{
 
     /**
      * 查询分页数据
@@ -26,7 +27,7 @@ public interface ITbFaceModelService extends IService<TbFaceModel> {
     /**
      * 添加
      *
-     * @param tbFaceModel 
+     * @param tbFaceModel
      * @return int
      */
     int add(TbFaceModel tbFaceModel);
@@ -42,7 +43,7 @@ public interface ITbFaceModelService extends IService<TbFaceModel> {
     /**
      * 修改
      *
-     * @param tbFaceModel 
+     * @param tbFaceModel
      * @return int
      */
     int updateData(TbFaceModel tbFaceModel);

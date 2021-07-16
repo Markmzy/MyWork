@@ -1,8 +1,8 @@
 package com.markmzy.mywork.wx.service;
 
-import com.markmzy.mywork.wx.model.TbCheckin;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.markmzy.mywork.wx.model.TbCheckin;
 
 /**
  * <p>
@@ -12,7 +12,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  * @author Zhiyue Ma
  * @since 2021-07-16
  */
-public interface ITbCheckinService extends IService<TbCheckin> {
+public interface ITbCheckinService extends IService<TbCheckin>
+{
 
     /**
      * 查询签到表分页数据

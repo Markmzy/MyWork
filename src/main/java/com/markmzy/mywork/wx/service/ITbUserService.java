@@ -1,8 +1,8 @@
 package com.markmzy.mywork.wx.service;
 
-import com.markmzy.mywork.wx.model.TbUser;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.markmzy.mywork.wx.model.TbUser;
 
 /**
  * <p>
@@ -12,7 +12,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  * @author Zhiyue Ma
  * @since 2021-07-16
  */
-public interface ITbUserService extends IService<TbUser> {
+public interface ITbUserService extends IService<TbUser>
+{
 
     /**
      * 查询用户表分页数据
