@@ -1,7 +1,7 @@
 package com.markmzy.mywork.wx.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.markmzy.mywork.wx.model.TbCity;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
@@ -9,9 +9,8 @@ import com.markmzy.mywork.wx.model.TbCity;
  * </p>
  *
  * @author Zhiyue Ma
- * @since 2021-07-16
+ * @since 2021-07-17
  */
-public interface TbCityMapper extends BaseMapper<TbCity>
-{
+public interface TbCityMapper extends BaseMapper<TbCity> {
 
 }

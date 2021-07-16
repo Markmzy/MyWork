@@ -1,22 +1,21 @@
 package com.markmzy.mywork.wx.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.markmzy.mywork.wx.model.TbWorkday;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
  * <p>
- * 服务类
+ * 工作日表 服务类
  * </p>
  *
  * @author Zhiyue Ma
- * @since 2021-07-16
+ * @since 2021-07-17
  */
-public interface ITbWorkdayService extends IService<TbWorkday>
-{
+public interface ITbWorkdayService extends IService<TbWorkday> {
 
     /**
-     * 查询分页数据
+     * 查询工作日表分页数据
      *
      * @param page      页码
      * @param pageCount 每页条数
@@ -25,15 +24,15 @@ public interface ITbWorkdayService extends IService<TbWorkday>
     IPage<TbWorkday> findListByPage(Integer page, Integer pageCount);
 
     /**
-     * 添加
+     * 添加工作日表
      *
-     * @param tbWorkday
+     * @param tbWorkday 工作日表
      * @return int
      */
     int add(TbWorkday tbWorkday);
 
     /**
-     * 删除
+     * 删除工作日表
      *
      * @param id 主键
      * @return int
@@ -41,9 +40,9 @@ public interface ITbWorkdayService extends IService<TbWorkday>
     int delete(Long id);
 
     /**
-     * 修改
+     * 修改工作日表
      *
-     * @param tbWorkday
+     * @param tbWorkday 工作日表
      * @return int
      */
     int updateData(TbWorkday tbWorkday);

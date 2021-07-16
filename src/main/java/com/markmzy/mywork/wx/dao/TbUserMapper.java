@@ -1,7 +1,7 @@
 package com.markmzy.mywork.wx.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.markmzy.mywork.wx.model.TbUser;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
@@ -9,9 +9,8 @@ import com.markmzy.mywork.wx.model.TbUser;
  * </p>
  *
  * @author Zhiyue Ma
- * @since 2021-07-16
+ * @since 2021-07-17
  */
-public interface TbUserMapper extends BaseMapper<TbUser>
-{
+public interface TbUserMapper extends BaseMapper<TbUser> {
 
 }

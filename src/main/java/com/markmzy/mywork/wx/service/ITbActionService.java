@@ -1,8 +1,8 @@
 package com.markmzy.mywork.wx.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.markmzy.mywork.wx.model.TbAction;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
  * <p>
@@ -10,10 +10,9 @@ import com.markmzy.mywork.wx.model.TbAction;
  * </p>
  *
  * @author Zhiyue Ma
- * @since 2021-07-16
+ * @since 2021-07-17
  */
-public interface ITbActionService extends IService<TbAction>
-{
+public interface ITbActionService extends IService<TbAction> {
 
     /**
      * 查询行为表分页数据

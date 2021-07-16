@@ -1,17 +1,16 @@
 package com.markmzy.mywork.wx.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.markmzy.mywork.wx.model.TbPermission;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
- * Mapper 接口
+ * 权限表 Mapper 接口
  * </p>
  *
  * @author Zhiyue Ma
- * @since 2021-07-16
+ * @since 2021-07-17
  */
-public interface TbPermissionMapper extends BaseMapper<TbPermission>
-{
+public interface TbPermissionMapper extends BaseMapper<TbPermission> {
 
 }

@@ -1,22 +1,21 @@
 package com.markmzy.mywork.wx.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.markmzy.mywork.wx.model.TbFaceModel;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
  * <p>
- * 服务类
+ * 人脸模型表 服务类
  * </p>
  *
  * @author Zhiyue Ma
- * @since 2021-07-16
+ * @since 2021-07-17
  */
-public interface ITbFaceModelService extends IService<TbFaceModel>
-{
+public interface ITbFaceModelService extends IService<TbFaceModel> {
 
     /**
-     * 查询分页数据
+     * 查询人脸模型表分页数据
      *
      * @param page      页码
      * @param pageCount 每页条数
@@ -25,15 +24,15 @@ public interface ITbFaceModelService extends IService<TbFaceModel>
     IPage<TbFaceModel> findListByPage(Integer page, Integer pageCount);
 
     /**
-     * 添加
+     * 添加人脸模型表
      *
-     * @param tbFaceModel
+     * @param tbFaceModel 人脸模型表
      * @return int
      */
     int add(TbFaceModel tbFaceModel);
 
     /**
-     * 删除
+     * 删除人脸模型表
      *
      * @param id 主键
      * @return int
@@ -41,9 +40,9 @@ public interface ITbFaceModelService extends IService<TbFaceModel>
     int delete(Long id);
 
     /**
-     * 修改
+     * 修改人脸模型表
      *
-     * @param tbFaceModel
+     * @param tbFaceModel 人脸模型表
      * @return int
      */
     int updateData(TbFaceModel tbFaceModel);

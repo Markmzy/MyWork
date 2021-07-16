@@ -1,16 +1,15 @@
 package com.markmzy.mywork.wx.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import java.util.Date;
+import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * <p>
@@ -18,14 +17,13 @@ import java.util.Date;
  * </p>
  *
  * @author Zhiyue Ma
- * @since 2021-07-16
+ * @since 2021-07-17
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "TbUser对象", description = "用户表")
-public class TbUser implements Serializable
-{
+@ApiModel(value="TbUser对象", description="用户表")
+public class TbUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

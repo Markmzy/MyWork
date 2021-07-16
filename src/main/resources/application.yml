@@ -41,7 +41,7 @@ spring:
       password: Mzy001007
 
 mybatis-plus:
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath:dao/*.xml
   type-aliases-package: com.markmzy.mywork.wx.model
   configuration:
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl

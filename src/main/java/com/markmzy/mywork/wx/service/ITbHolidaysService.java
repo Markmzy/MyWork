@@ -1,8 +1,8 @@
 package com.markmzy.mywork.wx.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.markmzy.mywork.wx.model.TbHolidays;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
  * <p>
@@ -10,10 +10,9 @@ import com.markmzy.mywork.wx.model.TbHolidays;
  * </p>
  *
  * @author Zhiyue Ma
- * @since 2021-07-16
+ * @since 2021-07-17
  */
-public interface ITbHolidaysService extends IService<TbHolidays>
-{
+public interface ITbHolidaysService extends IService<TbHolidays> {
 
     /**
      * 查询节假日表分页数据

@@ -1,7 +1,7 @@
 package com.markmzy.mywork.wx.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.markmzy.mywork.wx.model.TbHolidays;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
@@ -9,9 +9,8 @@ import com.markmzy.mywork.wx.model.TbHolidays;
  * </p>
  *
  * @author Zhiyue Ma
- * @since 2021-07-16
+ * @since 2021-07-17
  */
-public interface TbHolidaysMapper extends BaseMapper<TbHolidays>
-{
+public interface TbHolidaysMapper extends BaseMapper<TbHolidays> {
 
 }

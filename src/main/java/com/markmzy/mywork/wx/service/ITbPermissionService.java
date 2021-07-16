@@ -1,22 +1,21 @@
 package com.markmzy.mywork.wx.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.markmzy.mywork.wx.model.TbPermission;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
  * <p>
- * 服务类
+ * 权限表 服务类
  * </p>
  *
  * @author Zhiyue Ma
- * @since 2021-07-16
+ * @since 2021-07-17
  */
-public interface ITbPermissionService extends IService<TbPermission>
-{
+public interface ITbPermissionService extends IService<TbPermission> {
 
     /**
-     * 查询分页数据
+     * 查询权限表分页数据
      *
      * @param page      页码
      * @param pageCount 每页条数
@@ -25,15 +24,15 @@ public interface ITbPermissionService extends IService<TbPermission>
     IPage<TbPermission> findListByPage(Integer page, Integer pageCount);
 
     /**
-     * 添加
+     * 添加权限表
      *
-     * @param tbPermission
+     * @param tbPermission 权限表
      * @return int
      */
     int add(TbPermission tbPermission);
 
     /**
-     * 删除
+     * 删除权限表
      *
      * @param id 主键
      * @return int
@@ -41,9 +40,9 @@ public interface ITbPermissionService extends IService<TbPermission>
     int delete(Long id);
 
     /**
-     * 修改
+     * 修改权限表
      *
-     * @param tbPermission
+     * @param tbPermission 权限表
      * @return int
      */
     int updateData(TbPermission tbPermission);
