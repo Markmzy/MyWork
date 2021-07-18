@@ -1,8 +1,8 @@
 package com.markmzy.mywork.wx.service;
 
-import com.markmzy.mywork.wx.model.TbDept;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.markmzy.mywork.wx.model.TbDept;
 
 /**
  * <p>
@@ -12,7 +12,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  * @author Zhiyue Ma
  * @since 2021-07-17
  */
-public interface ITbDeptService extends IService<TbDept> {
+public interface ITbDeptService extends IService<TbDept>
+{
 
     /**
      * 查询部门表分页数据

@@ -1,7 +1,7 @@
 package com.markmzy.mywork.wx.dao;
 
-import com.markmzy.mywork.wx.model.TbAction;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.markmzy.mywork.wx.model.TbAction;
 
 /**
  * <p>
@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author Zhiyue Ma
  * @since 2021-07-17
  */
-public interface TbActionMapper extends BaseMapper<TbAction> {
+public interface TbActionMapper extends BaseMapper<TbAction>
+{
 
 }
