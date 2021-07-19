@@ -28,21 +28,21 @@ public class ExceptionAdvice
     public String exceptionHandler(Exception e)
     {
         log.error("执行异常", e);
-        if(e instanceof MethodArgumentNotValidException)
+        if(e instanceof MethodArgumentNotValidException) //后端数据验证异常
         {
             MethodArgumentNotValidException exception = (MethodArgumentNotValidException) e;
             return Objects.requireNonNull(exception.getBindingResult().getFieldError()).getDefaultMessage();
         }
-        else if(e instanceof MyException)
+        else if(e instanceof MyException) //自定义异常
         {
             MyException exception = (MyException) e;
             return exception.getMsg();
         }
-        else if(e instanceof UnauthorizedException)
+        else if(e instanceof UnauthorizedException) //未授权异常
         {
             return "你不具备相关权限";
         }
-        else
+        else //普通异常
         {
             return "后端执行异常";
         }

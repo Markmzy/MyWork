@@ -46,3 +46,12 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
     map-underscore-to-camel-case: true
+
+mywork:
+  jwt:
+    #密钥
+    secret: Mzy001007
+    #令牌过期时间 (天)
+    expire: 5
+    #令牌缓存时间 (天)
+    cache-expire: 10
