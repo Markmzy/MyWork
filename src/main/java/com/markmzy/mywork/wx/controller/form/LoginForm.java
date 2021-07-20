@@ -1,6 +1,7 @@
 package com.markmzy.mywork.wx.controller.form;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -16,5 +17,6 @@ import javax.validation.constraints.NotBlank;
 public class LoginForm
 {
     @NotBlank(message = "临时授权不能为空")
+    @ApiModelProperty("临时授权")
     private String code;
 }

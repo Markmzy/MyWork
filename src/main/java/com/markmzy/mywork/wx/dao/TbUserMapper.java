@@ -16,11 +16,13 @@ import java.util.Set;
  */
 public interface TbUserMapper extends BaseMapper<TbUser>
 {
-    public boolean haveRootUser();
+    boolean haveRootUser();
 
-    public void insertUser(HashMap map);
+    void insertUser(HashMap map);
 
-    public Integer searchIdByOpenId(String openId);
+    Integer searchIdByOpenId(String openId);
 
-    public Set<String> searchPermissionsById(int id);
+    Set<String> searchPermissionsById(int id);
+
+    TbUser searchUserById(int userId);
 }

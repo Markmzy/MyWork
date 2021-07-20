@@ -41,7 +41,7 @@ public class MyWorkApplication
         {
             String key = one.getParamKey();
             key = StrUtil.toCamelCase(key);
-            String value = one.getParamKey();
+            String value = one.getParamValue();
             try
             {
                 Field field = sysConstants.getClass().getDeclaredField(key); //反射

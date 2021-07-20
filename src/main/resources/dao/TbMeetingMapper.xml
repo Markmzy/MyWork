@@ -22,8 +22,9 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, uuid, title, creator_id, date, place, start
-        , end, type, members, desc, instance_id, status, create_time
+        id, uuid, title, creator_id, DATE, place, START
+        , END, type, members,
+        DESC, instance_id, STATUS, create_time
     </sql>
 
 </mapper>

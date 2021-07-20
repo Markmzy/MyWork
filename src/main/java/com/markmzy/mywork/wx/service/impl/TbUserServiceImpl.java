@@ -114,4 +114,10 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
         //从消息队列接收消息
         return id;
     }
+
+    @Override
+    public TbUser getUserById(int userId)
+    {
+        return tbUserMapper.searchUserById(userId);
+    }
 }

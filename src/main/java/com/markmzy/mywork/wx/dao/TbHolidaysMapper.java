@@ -13,5 +13,5 @@ import com.markmzy.mywork.wx.model.TbHolidays;
  */
 public interface TbHolidaysMapper extends BaseMapper<TbHolidays>
 {
-
+    Integer searchtodayIsHoliday();
 }

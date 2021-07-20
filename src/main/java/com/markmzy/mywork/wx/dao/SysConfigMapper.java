@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface SysConfigMapper extends BaseMapper<SysConfig>
 {
-    List<SysConfig> selectAllParam();
+    public List<SysConfig> selectAllParam();
 }

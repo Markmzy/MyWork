@@ -1,15 +1,16 @@
 package com.markmzy.mywork.wx.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.markmzy.mywork.wx.model.TbCheckin;
+import cn.hutool.core.date.DateUtil;
+import com.markmzy.mywork.wx.config.shiro.JwtUtil;
 import com.markmzy.mywork.wx.service.ITbCheckinService;
+import com.markmzy.mywork.wx.util.R;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -23,54 +24,23 @@ import javax.annotation.Resource;
  */
 @Api(tags = {"签到表"})
 @RestController
-@RequestMapping("/tb-checkin")
+@RequestMapping("/checkin")
 public class TbCheckinController
 {
-
-    private Logger log = LoggerFactory.getLogger(getClass());
-
     @Resource
     private ITbCheckinService tbCheckinService;
 
+    @Autowired
+    private JwtUtil jwtUtil;
 
-    @ApiOperation(value = "新增签到表")
-    @PostMapping()
-    public int add(@RequestBody TbCheckin tbCheckin)
+    @GetMapping("/validCanCheckIn")
+    @ApiOperation("查看用户今天是否可以签到")
+    public R validCanCheckIn(@RequestHeader("token") String token)
     {
-        return tbCheckinService.add(tbCheckin);
+        int userId = jwtUtil.getUserId(token);
+        String result = tbCheckinService.validCanCheckIn(userId, DateUtil.today());
+        return R.ok(result);
     }
 
-    @ApiOperation(value = "删除签到表")
-    @DeleteMapping("{id}")
-    public int delete(@PathVariable("id") Long id)
-    {
-        return tbCheckinService.delete(id);
-    }
-
-    @ApiOperation(value = "更新签到表")
-    @PutMapping()
-    public int update(@RequestBody TbCheckin tbCheckin)
-    {
-        return tbCheckinService.updateData(tbCheckin);
-    }
-
-    @ApiOperation(value = "查询签到表分页数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "页码"),
-            @ApiImplicitParam(name = "pageCount", value = "每页条数")
-    })
-    @GetMapping()
-    public IPage<TbCheckin> findListByPage(@RequestParam Integer page,
-                                           @RequestParam Integer pageCount)
-    {
-        return tbCheckinService.findListByPage(page, pageCount);
-    }
-
-    @ApiOperation(value = "id查询签到表")
-    @GetMapping("{id}")
-    public TbCheckin findById(@PathVariable Long id)
-    {
-        return tbCheckinService.findById(id);
-    }
 
 }

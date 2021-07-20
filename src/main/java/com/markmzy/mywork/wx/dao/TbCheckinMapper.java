@@ -3,6 +3,8 @@ package com.markmzy.mywork.wx.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.markmzy.mywork.wx.model.TbCheckin;
 
+import java.util.HashMap;
+
 /**
  * <p>
  * 签到表 Mapper 接口
@@ -13,5 +15,5 @@ import com.markmzy.mywork.wx.model.TbCheckin;
  */
 public interface TbCheckinMapper extends BaseMapper<TbCheckin>
 {
-
+    Integer haveCheckin(HashMap param);
 }

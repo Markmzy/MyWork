@@ -7,11 +7,10 @@ import com.markmzy.mywork.wx.service.ITbUserService;
 import com.markmzy.mywork.wx.util.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,9 +34,6 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/user")
 public class TbUserController
 {
-
-    private Logger log = LoggerFactory.getLogger(getClass());
-
     @Resource
     private ITbUserService tbUserService;
 
@@ -51,7 +47,7 @@ public class TbUserController
     private int cacheExpire;
 
     @ApiOperation("用户注册")
-    @RequestMapping("/register")
+    @PostMapping("/register")
     public R register(@Valid @RequestBody RegisterForm form)
     {
         int id = tbUserService.register(form.getRegisterCode(), form.getCode(), form.getNickname(), form.getPhoto());
@@ -62,7 +58,7 @@ public class TbUserController
     }
 
     @ApiOperation("用户登陆")
-    @RequestMapping("/login")
+    @PostMapping("/login")
     public R login(@Valid @RequestBody LoginForm form)
     {
         int id = tbUserService.login(form.getCode());

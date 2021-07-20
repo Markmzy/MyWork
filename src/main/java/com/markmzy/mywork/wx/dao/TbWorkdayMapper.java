@@ -13,5 +13,5 @@ import com.markmzy.mywork.wx.model.TbWorkday;
  */
 public interface TbWorkdayMapper extends BaseMapper<TbWorkday>
 {
-
+    Integer searchTodayIsWorkDay();
 }

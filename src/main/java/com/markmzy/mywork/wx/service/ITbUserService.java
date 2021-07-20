@@ -35,6 +35,9 @@ public interface ITbUserService extends IService<TbUser>
      */
     Integer login(String code);
 
-
+    /**
+     * 查询用户信息
+     */
+    TbUser getUserById(int userId);
 
 }

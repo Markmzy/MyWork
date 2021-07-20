@@ -83,4 +83,24 @@
           AND u.status = 1;
     </select>
 
+    <select id="searchUserById" parameterType="int" resultType="com.markmzy.mywork.wx.model.TbUser">
+        SELECT id,
+               open_id,
+               nickname,
+               photo,
+               name,
+               sex,
+               tel,
+               email,
+               hiredate,
+               role,
+               root,
+               dept_id,
+               status,
+               create_time
+        FROM tb_user
+        WHERE id = #{userId}
+          AND status = 1
+    </select>
+
 </mapper>

@@ -124,7 +124,7 @@ public class OAuth2Filter extends AuthenticatingFilter
                 resp.getWriter().println("令牌已过期");
                 return false;
             }
-        } catch(JWTDecodeException e) //如果解码失败
+        } catch(Exception e) //如果解码失败
         {
             resp.setStatus(HttpStatus.SC_UNAUTHORIZED);
             resp.getWriter().print("无效的令牌");
@@ -160,9 +160,10 @@ public class OAuth2Filter extends AuthenticatingFilter
     }
 
     @Override
-    public void doFilterInternal(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        HttpServletRequest req= (HttpServletRequest) request;
-        HttpServletResponse resp= (HttpServletResponse) response;
+    public void doFilterInternal(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException
+    {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         resp.setHeader("Access-Control-Allow-Credentials", "true");
