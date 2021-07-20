@@ -1,5 +1,12 @@
 package com.markmzy.mywork.wx.config.xss;
 
+/**
+ * @title: XssHttpServletRequestWrapper
+ * @Author Zhiyue Ma
+ * @Date: 7/18/21 18:35
+ * @Version 1.0
+ */
+
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HtmlUtil;
 import cn.hutool.json.JSONUtil;
@@ -9,21 +16,15 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * @title: XssHttpServletRequestWrapper
- * @Author Zhiyue Ma
- * @Date: 7/18/21 18:35
- * @Version 1.0
- */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper
 {
     public XssHttpServletRequestWrapper(HttpServletRequest request)
     {
-        super(request); //父类没有无参构造器，只能调用有参构造器
+        super(request);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper
     public Map<String, String[]> getParameterMap()
     {
         Map<String, String[]> parameters = super.getParameterMap();
-        LinkedHashMap<String, String[]> map = new LinkedHashMap<>();
+        LinkedHashMap<String, String[]> map = new LinkedHashMap();
         if(parameters != null)
         {
             for(String key : parameters.keySet())
@@ -96,7 +97,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper
     public ServletInputStream getInputStream() throws IOException
     {
         InputStream in = super.getInputStream();
-        InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
+        InputStreamReader reader = new InputStreamReader(in, Charset.forName("UTF-8"));
         BufferedReader buffer = new BufferedReader(reader);
         StringBuffer body = new StringBuffer();
         String line = buffer.readLine();
@@ -155,3 +156,4 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper
         };
     }
 }
+

@@ -1,17 +1,26 @@
 package com.markmzy.mywork.wx.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.markmzy.mywork.wx.model.TbUser;
+import com.markmzy.mywork.wx.config.shiro.JwtUtil;
+import com.markmzy.mywork.wx.controller.form.LoginForm;
+import com.markmzy.mywork.wx.controller.form.RegisterForm;
 import com.markmzy.mywork.wx.service.ITbUserService;
+import com.markmzy.mywork.wx.util.R;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -23,7 +32,7 @@ import javax.annotation.Resource;
  */
 @Api(tags = {"用户表"})
 @RestController
-@RequestMapping("/tb-user")
+@RequestMapping("/user")
 public class TbUserController
 {
 
@@ -32,45 +41,41 @@ public class TbUserController
     @Resource
     private ITbUserService tbUserService;
 
+    @Autowired
+    private JwtUtil jwtUtil;
 
-    @ApiOperation(value = "新增用户表")
-    @PostMapping()
-    public int add(@RequestBody TbUser tbUser)
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Value("${mywork.jwt.cache-expire}")
+    private int cacheExpire;
+
+    @ApiOperation("用户注册")
+    @RequestMapping("/register")
+    public R register(@Valid @RequestBody RegisterForm form)
     {
-        return tbUserService.add(tbUser);
+        int id = tbUserService.register(form.getRegisterCode(), form.getCode(), form.getNickname(), form.getPhoto());
+        String token = jwtUtil.createToken(id);
+        Set<String> permissions = tbUserService.getPermissions(id);
+        saveCacheToken(token, id);
+        return Objects.requireNonNull(R.ok("用户注册成功").put("token", token)).put("permissions", permissions);
     }
 
-    @ApiOperation(value = "删除用户表")
-    @DeleteMapping("{id}")
-    public int delete(@PathVariable("id") Long id)
+    @ApiOperation("用户登陆")
+    @RequestMapping("/login")
+    public R login(@Valid @RequestBody LoginForm form)
     {
-        return tbUserService.delete(id);
+        int id = tbUserService.login(form.getCode());
+        String token = jwtUtil.createToken(id);
+        Set<String> permissions = tbUserService.getPermissions(id);
+        saveCacheToken(token, id);
+        return Objects.requireNonNull(R.ok("用户登陆成功").put("token", token)).put("permissions", permissions);
     }
 
-    @ApiOperation(value = "更新用户表")
-    @PutMapping()
-    public int update(@RequestBody TbUser tbUser)
+    private void saveCacheToken(String token, int id)
     {
-        return tbUserService.updateData(tbUser);
+        redisTemplate.opsForValue().set(token, id + "", cacheExpire, TimeUnit.DAYS);
     }
 
-    @ApiOperation(value = "查询用户表分页数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "页码"),
-            @ApiImplicitParam(name = "pageCount", value = "每页条数")
-    })
-    @GetMapping()
-    public IPage<TbUser> findListByPage(@RequestParam Integer page,
-                                        @RequestParam Integer pageCount)
-    {
-        return tbUserService.findListByPage(page, pageCount);
-    }
-
-    @ApiOperation(value = "id查询用户表")
-    @GetMapping("{id}")
-    public TbUser findById(@PathVariable Long id)
-    {
-        return tbUserService.findById(id);
-    }
 
 }

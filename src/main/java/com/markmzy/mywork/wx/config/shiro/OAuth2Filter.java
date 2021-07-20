@@ -15,10 +15,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -154,5 +157,17 @@ public class OAuth2Filter extends AuthenticatingFilter
         }
 
         return false;
+    }
+
+    @Override
+    public void doFilterInternal(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
+        HttpServletRequest req= (HttpServletRequest) request;
+        HttpServletResponse resp= (HttpServletResponse) response;
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Access-Control-Allow-Credentials", "true");
+        resp.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
+        super.doFilterInternal(request, response, chain);
+
     }
 }

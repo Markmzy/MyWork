@@ -55,3 +55,8 @@ mywork:
     expire: 5
     #令牌缓存时间 (天)
     cache-expire: 10
+
+wx:
+  app-id: wx95d20548577d0986
+  app-secret: 2601953310d4736d04d2ccd06b0ec83a
+  app-superCode: 19970320

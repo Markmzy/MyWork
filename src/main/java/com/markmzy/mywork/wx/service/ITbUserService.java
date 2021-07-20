@@ -1,8 +1,9 @@
 package com.markmzy.mywork.wx.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.markmzy.mywork.wx.model.TbUser;
+
+import java.util.Set;
 
 /**
  * <p>
@@ -14,45 +15,26 @@ import com.markmzy.mywork.wx.model.TbUser;
  */
 public interface ITbUserService extends IService<TbUser>
 {
+    /**
+     * 获取用户ID
+     */
+    String getOpenId(String code);
 
     /**
-     * 查询用户表分页数据
-     *
-     * @param page      页码
-     * @param pageCount 每页条数
-     * @return IPage<TbUser>
+     * 注册
      */
-    IPage<TbUser> findListByPage(Integer page, Integer pageCount);
+    Integer register(String registerCode, String code, String nickname, String photo);
 
     /**
-     * 添加用户表
-     *
-     * @param tbUser 用户表
-     * @return int
+     * 获取用户权限
      */
-    int add(TbUser tbUser);
+    Set<String> getPermissions(int id);
 
     /**
-     * 删除用户表
-     *
-     * @param id 主键
-     * @return int
+     * 登陆
      */
-    int delete(Long id);
+    Integer login(String code);
 
-    /**
-     * 修改用户表
-     *
-     * @param tbUser 用户表
-     * @return int
-     */
-    int updateData(TbUser tbUser);
 
-    /**
-     * id查询数据
-     *
-     * @param id id
-     * @return TbUser
-     */
-    TbUser findById(Long id);
+
 }
