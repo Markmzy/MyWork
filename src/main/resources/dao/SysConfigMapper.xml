@@ -16,4 +16,10 @@
         id, param_key, param_value, status, remark
     </sql>
 
+    <select id="selectAllParam" resultType="com.markmzy.mywork.wx.model.SysConfig">
+        SELECT param_key, param_value
+        FROM sys_config
+        WHERE status = 1;
+    </select>
+
 </mapper>

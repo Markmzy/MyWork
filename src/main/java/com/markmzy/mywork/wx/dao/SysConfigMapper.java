@@ -3,6 +3,8 @@ package com.markmzy.mywork.wx.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.markmzy.mywork.wx.model.SysConfig;
 
+import java.util.List;
+
 /**
  * <p>
  * 系统设置表 Mapper 接口
@@ -13,5 +15,5 @@ import com.markmzy.mywork.wx.model.SysConfig;
  */
 public interface SysConfigMapper extends BaseMapper<SysConfig>
 {
-
+    List<SysConfig> selectAllParam();
 }
