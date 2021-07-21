@@ -23,6 +23,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
@@ -124,8 +125,8 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
     public void checkin(HashMap param)
     {
         Date now = DateUtil.date();
-        Date start = DateUtil.parse(DateUtil.today() + "" + sysConstants.attendanceTime);
-        Date end = DateUtil.parse(DateUtil.today() + "" + sysConstants.attendanceEndTime);
+        Date start = DateUtil.parse(DateUtil.today() + " " + sysConstants.attendanceTime);
+        Date end = DateUtil.parse(DateUtil.today() + " " + sysConstants.attendanceEndTime);
 
         int status = 1; //正常考勤
 
@@ -144,7 +145,7 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
             HttpRequest request = HttpUtil.createPost(checkinUrl);
             request.form("photo", FileUtil.file(path));
             request.form("targetModel", faceModel);
-            request.form("code",code);
+            request.form("code", code);
             HttpResponse response = request.execute();
             if(response.getStatus() != 200)
             {
@@ -175,7 +176,11 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
                     String code = tbCityMapper.searchCode(city);
                     try
                     {
-                        String url = "http://m." + code + ".bendibao.com/news/yqdengji/?qu=" + district;
+                        String url = "";
+                        if(code.equals("http://m.bendibao.com/news/yqdengji/")) //深圳本站
+                            url = code + "?qu=" + district;
+                        else
+                            url = "http://m." + code + ".bendibao.com/news/yqdengji/?qu=" + district;
                         Document document = Jsoup.connect(url).get();
                         Elements elements = document.getElementsByClass("list-content");
                         if(elements.size() > 0)
@@ -192,13 +197,18 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
                                 SimpleMailMessage message = new SimpleMailMessage();
                                 message.setTo(hrEmail);
                                 message.setSubject(name + "身处高风险疫情地区警告");
-                                message.setText(deptName + "员工" + name + "在" + DateUtil.format(new Date(), "yyyy年MM月dd日") + "处于高风险地区-----" + address);
+                                message.setText(deptName + "员工" + name + "，" + DateUtil.format(new Date(), "yyyy年MM月dd日") + "处于" + address + "，属于新冠疫情高风险地区，请及时与该员工联系，核实情况！");
+                                emailTask.sendAsync(message);
                             }
                             else if("中风险".equals(result))
                             {
                                 risk = 2; //中风险
                             }
                         }
+                    } catch(DuplicateKeyException e)
+                    {
+                        log.error("无法重复签到", e);
+                        throw new MyException("无法重复签到");
                     } catch(Exception e)
                     {
                         log.error("执行异常", e);
@@ -229,7 +239,7 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
     {
         HttpRequest request = HttpUtil.createPost(createFaceModelUrl);
         request.form("photo", FileUtil.file(path));
-        request.form("code",code);
+        request.form("code", code);
         HttpResponse response = request.execute();
         String body = response.body();
         if("无法识别出人脸".equals(body) || "照片中存在多张人脸".equals(body))

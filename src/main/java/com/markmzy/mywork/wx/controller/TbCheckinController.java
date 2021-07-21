@@ -66,9 +66,9 @@ public class TbCheckinController
         int userId = jwtUtil.getUserId(token);
         String fileName = Objects.requireNonNull(file.getOriginalFilename()).toLowerCase();
 
-        if(!fileName.endsWith(".jpg") || !fileName.endsWith(".jpeg"))
+        if(!fileName.endsWith(".jpg"))
         {
-            return R.error("必须提交JPG/JPEG格式图片");
+            return R.error("必须提交JPG格式图片");
         }
         else
         {
@@ -110,9 +110,9 @@ public class TbCheckinController
         int userId = jwtUtil.getUserId(token);
         String fileName = Objects.requireNonNull(file.getOriginalFilename()).toLowerCase();
 
-        if(!fileName.endsWith(".jpg") || !fileName.endsWith(".jpeg"))
+        if(!fileName.endsWith(".jpg"))
         {
-            return R.error("必须提交JPG/JPEG格式图片");
+            return R.error("必须提交JPG格式图片");
         }
         else
         {
@@ -121,6 +121,7 @@ public class TbCheckinController
             {
                 file.transferTo(Paths.get(path));
                 tbCheckinService.createFaceModel(userId, path);
+
                 return R.ok("人脸建模成功");
             } catch(IOException e)
             {

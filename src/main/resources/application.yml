@@ -35,7 +35,7 @@ spring:
     default-encoding: UTF-8
     host: smtp.163.com
     username: zhiyuem1@163.com
-    password: Mzy001007
+    password: GDJGCUTRHQCVLOJU
 
   data:
     mongodb:
@@ -45,6 +45,11 @@ spring:
       authentication-database: admin
       username: root
       password: Mzy001007
+
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
 
 mybatis-plus:
   mapper-locations: classpath:dao/*.xml
@@ -70,7 +75,7 @@ mywork:
     system: zhiyuem1@163.com
     hr: 199703209@qq.com
 
-  image-folder: Users/Markmzy/Desktop/image
+  image-folder: /Users/Markmzy/Desktop/image
 
   #调用Python人脸模型 需要定期更新
   code: BBAFD1C12ACCD00E
