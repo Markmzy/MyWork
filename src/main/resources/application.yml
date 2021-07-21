@@ -31,6 +31,12 @@ spring:
         max-idle: 16
         min-idle: 8
 
+  mail:
+    default-encoding: UTF-8
+    host: smtp.163.com
+    username: zhiyuem1@163.com
+    password: Mzy001007
+
   data:
     mongodb:
       host: localhost
@@ -55,6 +61,19 @@ mywork:
     expire: 5
     #令牌缓存时间 (天)
     cache-expire: 10
+
+  face:
+    createFaceModelUrl: http://192.168.0.101:3000/create_face_model
+    checkinUrl: http://192.168.0.101:3000/checkin
+
+  email:
+    system: zhiyuem1@163.com
+    hr: 199703209@qq.com
+
+  image-folder: Users/Markmzy/Desktop/image
+
+  #调用Python人脸模型 需要定期更新
+  code: BBAFD1C12ACCD00E
 
 wx:
   app-id: wx95d20548577d0986

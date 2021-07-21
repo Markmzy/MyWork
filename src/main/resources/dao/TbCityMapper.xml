@@ -14,4 +14,10 @@
         id, city, code
     </sql>
 
+    <select id="searchCode" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT code
+        FROM tb_city
+        WHERE city = #{city}
+    </select>
+
 </mapper>

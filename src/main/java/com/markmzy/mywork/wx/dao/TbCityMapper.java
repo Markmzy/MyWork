@@ -13,5 +13,5 @@ import com.markmzy.mywork.wx.model.TbCity;
  */
 public interface TbCityMapper extends BaseMapper<TbCity>
 {
-
+    String searchCode(String city);
 }

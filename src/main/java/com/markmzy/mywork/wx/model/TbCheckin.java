@@ -9,7 +9,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -58,7 +57,7 @@ public class TbCheckin implements Serializable
     private Integer risk;
 
     @ApiModelProperty(value = "签到日期")
-    private LocalDate date;
+    private String date;
 
     @ApiModelProperty(value = "签到时间")
     private Date createTime;

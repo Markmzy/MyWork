@@ -1,7 +1,6 @@
 package com.markmzy.mywork.wx.config.shiro;
 
 import cn.hutool.core.util.StrUtil;
-import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;

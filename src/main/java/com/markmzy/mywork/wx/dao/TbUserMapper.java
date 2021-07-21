@@ -25,4 +25,6 @@ public interface TbUserMapper extends BaseMapper<TbUser>
     Set<String> searchPermissionsById(int id);
 
     TbUser searchUserById(int userId);
+
+    HashMap<String, String> searchNameAndDept(int userId);
 }

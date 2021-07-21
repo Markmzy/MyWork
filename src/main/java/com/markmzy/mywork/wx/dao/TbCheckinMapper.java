@@ -16,4 +16,6 @@ import java.util.HashMap;
 public interface TbCheckinMapper extends BaseMapper<TbCheckin>
 {
     Integer haveCheckin(HashMap param);
+
+    void insertCheckin(TbCheckin checkin);
 }

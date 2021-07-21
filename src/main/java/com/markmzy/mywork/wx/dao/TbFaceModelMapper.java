@@ -13,5 +13,9 @@ import com.markmzy.mywork.wx.model.TbFaceModel;
  */
 public interface TbFaceModelMapper extends BaseMapper<TbFaceModel>
 {
+    String searchFaceModel(int userId);
 
+    void insertFaceModel(TbFaceModel faceModel);
+
+    int deleteFaceModel(int userId);
 }

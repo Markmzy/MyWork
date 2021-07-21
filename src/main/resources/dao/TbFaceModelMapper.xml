@@ -14,4 +14,22 @@
         id, user_id, face_model
     </sql>
 
+    <select id="searchFaceModel" parameterType="int" resultType="java.lang.String">
+        SELECT face_model
+        FROM tb_face_model
+        WHERE user_id = #{userId}
+    </select>
+
+    <insert id="insertFaceModel" parameterType="com.markmzy.mywork.wx.model.TbFaceModel">
+        INSERT INTO tb_face_model
+        SET user_id= #{userId},
+            face_model=#{faceModel};
+    </insert>
+
+    <delete id="deleteFaceModel" parameterType="int">
+        DELETE
+        FROM tb_face_model
+        WHERE user_id = #{userId}
+    </delete>
+
 </mapper>

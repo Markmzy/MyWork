@@ -7,17 +7,21 @@ import com.markmzy.mywork.wx.model.SysConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.List;
 
 @SpringBootApplication
 @ServletComponentScan
 @MapperScan("com.markmzy.mywork.wx.dao")
+@EnableAsync
 @Slf4j
 public class MyWorkApplication
 {
@@ -26,6 +30,9 @@ public class MyWorkApplication
 
     @Autowired
     private SysConstants sysConstants;
+
+    @Value("${mywork.image-folder}")
+    private String imageFolder;
 
     public static void main(String[] args)
     {
@@ -51,5 +58,8 @@ public class MyWorkApplication
                 log.error("执行异常", e);
             }
         });
+
+        // 创建临时图片文件
+        new File(imageFolder).mkdirs();
     }
 }
