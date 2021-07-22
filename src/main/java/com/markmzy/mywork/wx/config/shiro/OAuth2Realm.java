@@ -43,7 +43,7 @@ public class OAuth2Realm extends AuthorizingRealm
         TbUser user = (TbUser) principalCollection.getPrimaryPrincipal();
         int userId = user.getId();
         //用户权限列表
-        Set<String> permissions = tbUserService.getPermissions(userId);
+        Set<String> permissions = tbUserService.searchPermissions(userId);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setStringPermissions(permissions);
         return info;
@@ -57,7 +57,7 @@ public class OAuth2Realm extends AuthorizingRealm
     {
         String token = (String) authenticationToken.getPrincipal();
         int userId = jwtUtil.getUserId(token);
-        TbUser user = tbUserService.getUserById(userId);
+        TbUser user = tbUserService.searchUserById(userId);
         if(user == null)
             throw new LockedAccountException("账号已被锁定，请联系管理员");
 

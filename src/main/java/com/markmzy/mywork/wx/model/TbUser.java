@@ -55,7 +55,7 @@ public class TbUser implements Serializable
     private String email;
 
     @ApiModelProperty(value = "入职日期")
-    private LocalDate hiredate;
+    private LocalDate hireDate;
 
     @ApiModelProperty(value = "角色")
     private String role;

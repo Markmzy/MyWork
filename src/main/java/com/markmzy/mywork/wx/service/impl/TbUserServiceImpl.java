@@ -45,7 +45,7 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
     private TbUserMapper tbUserMapper;
 
     @Override
-    public String getOpenId(String code)
+    public String searchOpenId(String code)
     {
         String url = "https://api.weixin.qq.com/sns/jscode2session";
         HashMap map = new HashMap();
@@ -71,7 +71,7 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
         {
             if(!tbUserMapper.haveRootUser()) //如果没有超级管理员，则注册
             {
-                String openId = getOpenId(code);
+                String openId = searchOpenId(code);
                 HashMap param = new HashMap();
                 param.put("openId", openId);
                 param.put("nickname", nickname);
@@ -98,7 +98,7 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
     }
 
     @Override
-    public Set<String> getPermissions(int id)
+    public Set<String> searchPermissions(int id)
     {
         return tbUserMapper.searchPermissionsById(id);
     }
@@ -106,7 +106,7 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
     @Override
     public Integer login(String code)
     {
-        String openId = getOpenId(code);
+        String openId = searchOpenId(code);
         Integer id = tbUserMapper.searchIdByOpenId(openId);
         if(id == null)
             throw new MyException("账户不存在");
@@ -116,8 +116,20 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
     }
 
     @Override
-    public TbUser getUserById(int userId)
+    public TbUser searchUserById(int userId)
     {
         return tbUserMapper.searchUserById(userId);
+    }
+
+    @Override
+    public String searchHireDate(int userId)
+    {
+        return tbUserMapper.searchHireDate(userId);
+    }
+
+    @Override
+    public HashMap searchUserSummary(int userId)
+    {
+        return tbUserMapper.searchUserSummary(userId);
     }
 }

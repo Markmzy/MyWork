@@ -27,4 +27,8 @@ public interface TbUserMapper extends BaseMapper<TbUser>
     TbUser searchUserById(int userId);
 
     HashMap<String, String> searchNameAndDept(int userId);
+
+    String searchHireDate(int userId);
+
+    HashMap searchUserSummary(int userId);
 }

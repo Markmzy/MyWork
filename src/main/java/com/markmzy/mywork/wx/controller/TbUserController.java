@@ -10,13 +10,11 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -46,24 +44,24 @@ public class TbUserController
     @Value("${mywork.jwt.cache-expire}")
     private int cacheExpire;
 
-    @ApiOperation("用户注册")
     @PostMapping("/register")
+    @ApiOperation("用户注册")
     public R register(@Valid @RequestBody RegisterForm form)
     {
         int id = tbUserService.register(form.getRegisterCode(), form.getCode(), form.getNickname(), form.getPhoto());
         String token = jwtUtil.createToken(id);
-        Set<String> permissions = tbUserService.getPermissions(id);
+        Set<String> permissions = tbUserService.searchPermissions(id);
         saveCacheToken(token, id);
         return Objects.requireNonNull(R.ok("用户注册成功").put("token", token)).put("permissions", permissions);
     }
 
-    @ApiOperation("用户登陆")
     @PostMapping("/login")
+    @ApiOperation("用户登陆")
     public R login(@Valid @RequestBody LoginForm form)
     {
         int id = tbUserService.login(form.getCode());
         String token = jwtUtil.createToken(id);
-        Set<String> permissions = tbUserService.getPermissions(id);
+        Set<String> permissions = tbUserService.searchPermissions(id);
         saveCacheToken(token, id);
         return Objects.requireNonNull(R.ok("用户登陆成功").put("token", token)).put("permissions", permissions);
     }
@@ -71,6 +69,15 @@ public class TbUserController
     private void saveCacheToken(String token, int id)
     {
         redisTemplate.opsForValue().set(token, id + "", cacheExpire, TimeUnit.DAYS);
+    }
+
+    @GetMapping("/searchUserSummary")
+    @ApiOperation("查询用户概要信息")
+    public R searchUserSummary(@RequestHeader("token") String token)
+    {
+        int userId = jwtUtil.getUserId(token);
+        HashMap map = tbUserService.searchUserSummary(userId);
+        return R.ok().put("result", map);
     }
 
 

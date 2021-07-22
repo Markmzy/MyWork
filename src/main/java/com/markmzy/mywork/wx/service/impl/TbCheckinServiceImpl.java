@@ -1,5 +1,7 @@
 package com.markmzy.mywork.wx.service.impl;
 
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateRange;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
@@ -23,10 +25,10 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -82,7 +84,7 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
     @Override
     public String validCanCheckIn(int userId, String date)
     {
-        boolean isHoliday = tbHolidaysMapper.searchtodayIsHoliday() != null ? true : false;
+        boolean isHoliday = tbHolidaysMapper.searchTodayIsHoliday() != null ? true : false;
         boolean isWorkday = tbWorkdayMapper.searchTodayIsWorkDay() != null ? true : false;
 
         String type = "工作日";
@@ -205,10 +207,6 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
                                 risk = 2; //中风险
                             }
                         }
-                    } catch(DuplicateKeyException e)
-                    {
-                        log.error("无法重复签到", e);
-                        throw new MyException("无法重复签到");
                     } catch(Exception e)
                     {
                         log.error("执行异常", e);
@@ -253,5 +251,87 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
             entity.setFaceModel(body);
             tbFaceModelMapper.insertFaceModel(entity);
         }
+    }
+
+    @Override
+    public HashMap searchTodayCheckIn(int userId)
+    {
+        HashMap map = tbCheckinMapper.searchTodayCheckin(userId);
+        return map;
+    }
+
+    @Override
+    public Long searchCheckInDays(int userId)
+    {
+        long days = tbCheckinMapper.searchCheckinDays(userId);
+        return days;
+    }
+
+    @Override
+    public ArrayList<HashMap> searchWeekCheckIn(HashMap param)
+    {
+        ArrayList<HashMap> checkInList = tbCheckinMapper.searchWeekCheckin(param);
+        ArrayList holidaysList = tbHolidaysMapper.searchHolidaysInRange(param);
+        ArrayList workdayList = tbWorkdayMapper.searchWorkdayInRange(param);
+
+        DateTime startDate = DateUtil.parse(param.get("startDate").toString());
+        DateTime endDate = DateUtil.parse(param.get("endDate").toString());
+        DateRange range = DateUtil.range(startDate, endDate, DateField.DAY_OF_MONTH);
+
+        ArrayList<HashMap> list = new ArrayList<>();
+        range.forEach(one ->
+        {
+            String date = one.toString("yyyy-MM-dd");
+            String type = "工作日";
+            if(one.isWeekend())
+            {
+                type = "节假日";
+            }
+            if(holidaysList != null && holidaysList.contains(date))
+            {
+                type = "节假日";
+            }
+            else if(workdayList != null && workdayList.contains(date))
+            {
+                type = "工作日";
+            }
+
+            String status = ""; //未来的日子
+            if(type.equals("工作日") && DateUtil.date().isAfterOrEquals(one))
+            {
+                status = "缺勤";
+                boolean flag = false;
+                for(HashMap<String, String> map : checkInList)
+                {
+                    if(map.containsValue(date))
+                    {
+                        status = map.get("status");
+                        flag = true;
+                        break;
+                    }
+                }
+                DateTime endTime = DateUtil.parse(DateUtil.today() + " " + sysConstants.attendanceEndTime);
+                String today = DateUtil.today();
+                if(date.equals(today) && DateUtil.date().isBefore(endTime) && !flag) //今天还没结束考勤，但也还没签到
+                {
+                    status = "";
+                }
+            }
+
+            HashMap map = new HashMap();
+            map.put("date", date);
+            map.put("status", status);
+            map.put("type", type);
+            map.put("day", one.dayOfWeekEnum().toChinese("周"));
+            list.add(map);
+        });
+
+        return list;
+    }
+
+    @Override
+    public ArrayList<HashMap> searchMonthCheckIn(HashMap param)
+    {
+        return this.searchWeekCheckIn(param);
     }
 }

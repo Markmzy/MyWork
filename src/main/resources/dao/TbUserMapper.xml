@@ -12,7 +12,7 @@
         <result column="sex" property="sex"/>
         <result column="tel" property="tel"/>
         <result column="email" property="email"/>
-        <result column="hiredate" property="hiredate"/>
+        <result column="hiredate" property="hireDate"/>
         <result column="role" property="role"/>
         <result column="root" property="root"/>
         <result column="dept_id" property="deptId"/>
@@ -22,7 +22,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, open_id, nickname, photo, name, sex, tel, email, hiredate, role, root, dept_id, status, create_time
+        id, open_id, nickname, photo, name, sex, tel, email, hireDate, role, root, dept_id, status, create_time
     </sql>
 
     <select id="haveRootUser" resultType="boolean">
@@ -109,6 +109,21 @@
                  LEFT JOIN tb_dept d ON u.dept_id = d.id
         WHERE u.id = #{userId}
           AND u.status = 1
+    </select>
+
+    <select id="searchHireDate" parameterType="int" resultType="java.lang.String">
+        SELECT hiredate
+        FROM tb_user
+        WHERE id = #{userId}
+          AND status = 1
+    </select>
+
+    <select id="searchUserSummary" resultType="java.util.HashMap">
+        SELECT u.name, u.photo, u.hiredate as hireDate, d.dept_name as deptName
+        FROM tb_user u
+                 LEFT JOIN tb_dept d ON u.dept_id = d.id
+        WHERE u.id = #{userId}
+          AND u.status = 1;
     </select>
 
 </mapper>

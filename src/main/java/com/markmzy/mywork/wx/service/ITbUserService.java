@@ -3,6 +3,7 @@ package com.markmzy.mywork.wx.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.markmzy.mywork.wx.model.TbUser;
 
+import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -18,7 +19,7 @@ public interface ITbUserService extends IService<TbUser>
     /**
      * 获取用户ID
      */
-    String getOpenId(String code);
+    String searchOpenId(String code);
 
     /**
      * 注册
@@ -28,7 +29,7 @@ public interface ITbUserService extends IService<TbUser>
     /**
      * 获取用户权限
      */
-    Set<String> getPermissions(int id);
+    Set<String> searchPermissions(int id);
 
     /**
      * 登陆
@@ -38,6 +39,16 @@ public interface ITbUserService extends IService<TbUser>
     /**
      * 查询用户信息
      */
-    TbUser getUserById(int userId);
+    TbUser searchUserById(int userId);
+
+    /**
+     * 查询用户入职时间
+     */
+    String searchHireDate(int userId);
+
+    /**
+     * 查询用户概要信息
+     */
+    HashMap searchUserSummary(int userId);
 
 }
