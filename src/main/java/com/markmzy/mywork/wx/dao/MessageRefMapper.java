@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Repository;
 
 /**
  * @title: MessageRefMapper
@@ -16,12 +17,13 @@ import org.springframework.data.mongodb.core.query.Update;
  * @Version 1.0
  */
 
+@Repository
 public class MessageRefMapper
 {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public String insert(MessageRef messageRef)
+    public String insertRef(MessageRef messageRef)
     {
         messageRef = mongoTemplate.save(messageRef);
         return messageRef.get_id();

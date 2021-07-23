@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "MessageRef对象", description = "消息接受人表")
+@ApiModel(value = "MessageRef对象", description = "消息关联表")
 @Document(collection = "message_ref")
 public class MessageRef implements Serializable
 {

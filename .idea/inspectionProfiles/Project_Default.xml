@@ -35,6 +35,7 @@
           <option value="http://tiles.apache.org/" />
           <option value="http://192.168.0.101" />
           <option value="http://m." />
+          <option value="http://192.168.0.100" />
         </list>
       </option>
     </inspection_tool>

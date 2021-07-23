@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -25,23 +26,26 @@ import java.util.List;
  * @Version 1.0
  */
 
+@Repository
 public class MessageMapper
 {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public String insert(Message message)
+
+    public String insertMessage(Message message)
     {
-        // 时间从伦敦时间改到北京时间
+        // 把北京时间转成格林尼治时间
         Date sendTime = message.getSendTime();
-        sendTime = DateUtil.offset(sendTime, DateField.HOUR, -8);
+        sendTime = DateUtil.offset(sendTime, DateField.HOUR, 8);
         message.setSendTime(sendTime);
 
         message = mongoTemplate.save(message);
         return message.get_id();
     }
 
-    public List<HashMap> searchMessageByPage(int userId, int pageNum, int pageSize)
+
+    public List<HashMap> searchMessageByPage(int userId, long start, int pageSize)
     {
         JSONObject json = new JSONObject();
         json.set("$toString", "$_id");
@@ -50,7 +54,7 @@ public class MessageMapper
                 Aggregation.lookup("message_ref", "id", "messageId", "ref"),
                 Aggregation.match(Criteria.where("ref.receiverId").is(userId)), // Where
                 Aggregation.sort(Sort.by(Sort.Direction.DESC, "sendTime")), //按照发送时间降序
-                Aggregation.skip(pageNum),
+                Aggregation.skip(start),
                 Aggregation.limit(pageSize)
         );
 
@@ -71,6 +75,7 @@ public class MessageMapper
             one.remove("ref");
             one.remove("_id");
 
+            //把格林尼治时间转成北京时间
             Date sendTime = (Date) one.get("sendTime");
             sendTime = DateUtil.offset(sendTime, DateField.HOUR, -8);
 
@@ -93,7 +98,7 @@ public class MessageMapper
     {
         HashMap map = mongoTemplate.findById(id, HashMap.class, "message");
         Date sendTime = (Date) map.get("sendTime");
-        sendTime = DateUtil.offset(sendTime, DateField.HOUR, -8);
+        sendTime = DateUtil.offset(sendTime, DateField.HOUR, 8);
         map.replace("sendTime", DateUtil.format(sendTime, "yyyy-MM-dd HH:mm"));
         return map;
     }

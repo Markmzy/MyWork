@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(tags = {"角色表"})
 @RestController
-@RequestMapping("/tb-role")
+@RequestMapping("/role")
 public class TbRoleController
 {
 

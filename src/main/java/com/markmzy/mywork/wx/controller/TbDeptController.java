@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  */
 @Api(tags = {"部门表"})
 @RestController
-@RequestMapping("/tb-dept")
+@RequestMapping("/dept")
 public class TbDeptController
 {
 

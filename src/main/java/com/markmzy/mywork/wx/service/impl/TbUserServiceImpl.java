@@ -6,8 +6,10 @@ import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.markmzy.mywork.wx.dao.TbUserMapper;
 import com.markmzy.mywork.wx.exception.MyException;
+import com.markmzy.mywork.wx.model.Message;
 import com.markmzy.mywork.wx.model.TbUser;
 import com.markmzy.mywork.wx.service.ITbUserService;
+import com.markmzy.mywork.wx.task.MessageTask;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,6 +45,9 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
 
     @Autowired
     private TbUserMapper tbUserMapper;
+
+    @Autowired
+    private MessageTask messageTask;
 
     @Override
     public String searchOpenId(String code)
@@ -82,7 +87,15 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
                 param.put("root", true);
                 tbUserMapper.insertUser(param);
                 int id = tbUserMapper.searchIdByOpenId(openId);
+
+                Message message = new Message();
+                message.setSenderId(0);
+                message.setSenderName("系统消息");
+                message.setMsg("欢迎您注册成为超级管理员，请及时更新您的员工个人信息。");
+                message.setSendTime(new Date());
+                messageTask.sendAsync(id + "", message);
                 return id;
+
             }
             else
             {
@@ -111,7 +124,6 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
         if(id == null)
             throw new MyException("账户不存在");
 
-        //从消息队列接收消息
         return id;
     }
 

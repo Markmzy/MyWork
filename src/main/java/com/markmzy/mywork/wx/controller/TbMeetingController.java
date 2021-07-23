@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  */
 @Api(tags = {"会议表"})
 @RestController
-@RequestMapping("/tb-meeting")
+@RequestMapping("/meeting")
 public class TbMeetingController
 {
 
