@@ -1,11 +1,20 @@
 package com.markmzy.mywork.wx.controller;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.UUID;
+import cn.hutool.json.JSONUtil;
 import com.markmzy.mywork.wx.config.shiro.JwtUtil;
+import com.markmzy.mywork.wx.controller.form.InsertMeetingForm;
 import com.markmzy.mywork.wx.controller.form.SearchMeetingListByPageForm;
+import com.markmzy.mywork.wx.exception.MyException;
+import com.markmzy.mywork.wx.model.TbMeeting;
 import com.markmzy.mywork.wx.service.ITbMeetingService;
 import com.markmzy.mywork.wx.util.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,4 +58,39 @@ public class TbMeetingController
         return R.ok().put("result", list);
     }
 
+    @PostMapping("/insertMeeting")
+    @ApiOperation("创建会议")
+    @RequiresPermissions(value = {"ROOT", "MEETING:INSERT"}, logical = Logical.OR)
+    public R insertMeeting(@Valid @RequestBody InsertMeetingForm form, @RequestHeader("token") String token)
+    {
+        if(form.getType() == 2 && (form.getPlace() == null || form.getPlace().length() == 0))
+        {
+            throw new MyException("线下会议地点不能为空");
+        }
+        DateTime d1 = DateUtil.parse(form.getDate() + " " + form.getStart() + ":00");
+        DateTime d2 = DateUtil.parse(form.getDate() + " " + form.getEnd() + ":00");
+        if(d2.isBeforeOrEquals(d1))
+        {
+            throw new MyException("结束时间必须大于开始时间");
+        }
+        if(!JSONUtil.isJsonArray(form.getMembers()))
+        {
+            throw new MyException("members不是JSON数组");
+        }
+
+        TbMeeting meeting = new TbMeeting();
+        meeting.setUuid(UUID.randomUUID().toString(true));
+        meeting.setTitle(form.getTitle());
+        meeting.setCreatorId(jwtUtil.getUserId(token));
+        meeting.setDate(form.getDate());
+        meeting.setPlace(form.getPlace());
+        meeting.setStart(form.getStart() + ":00");
+        meeting.setEnd(form.getEnd() + ":00");
+        meeting.setType(form.getType());
+        meeting.setMembers(form.getMembers());
+        meeting.setDesc(form.getDesc());
+        meeting.setStatus(1);
+        tbMeetingService.insertMeeting(meeting);
+        return R.ok().put("result", "添加会议成功");
+    }
 }

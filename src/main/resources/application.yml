@@ -65,7 +65,7 @@ mybatis-plus:
 logging:
   level:
     root: info
-    com.markmzy.wx.dao : warn
+    com.markmzy.wx.dao: warn
 
 mywork:
   jwt:

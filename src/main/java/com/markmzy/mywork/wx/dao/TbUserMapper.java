@@ -3,7 +3,9 @@ package com.markmzy.mywork.wx.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.markmzy.mywork.wx.model.TbUser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,4 +33,9 @@ public interface TbUserMapper extends BaseMapper<TbUser>
     String searchHireDate(int userId);
 
     HashMap searchUserSummary(int userId);
+
+    ArrayList<HashMap> searchUserGroupByDept(String keyword);
+
+    ArrayList<HashMap> searchMembers(List param);
+
 }

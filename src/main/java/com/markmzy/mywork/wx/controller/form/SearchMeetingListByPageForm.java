@@ -18,8 +18,8 @@ import javax.validation.constraints.NotNull;
 @ApiModel
 public class SearchMeetingListByPageForm
 {
-    @NotNull(message= "页码不能为空")
-    @Min(value = 1,message = "页码最小为1")
+    @NotNull(message = "页码不能为空")
+    @Min(value = 1, message = "页码最小为1")
     private Integer pageNum;
 
     @NotNull(message = "页数据量不能为空")

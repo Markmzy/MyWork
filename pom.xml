@@ -14,7 +14,7 @@
     <name>MyWork</name>
     <description>MyWork is an online office system wechat mini-app</description>
     <properties>
-        <java.version>14</java.version>
+        <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>

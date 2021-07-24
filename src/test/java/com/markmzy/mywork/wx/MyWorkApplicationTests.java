@@ -46,11 +46,12 @@ class MyWorkApplicationTests
     @Test
     void createMeetingData()
     {
-        for (int i=1;i<=100;i++){
-            TbMeeting meeting=new TbMeeting();
-            meeting.setId((long)i);
+        for(int i = 1; i <= 100; i++)
+        {
+            TbMeeting meeting = new TbMeeting();
+            meeting.setId(i);
             meeting.setUuid(IdUtil.simpleUUID());
-            meeting.setTitle("测试会议"+i);
+            meeting.setTitle("测试会议" + i);
             meeting.setCreatorId(2); //ROOT用户ID
             meeting.setDate(DateUtil.today());
             meeting.setPlace("线上会议室");
