@@ -4,6 +4,7 @@ import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.markmzy.mywork.wx.dao.TbDeptMapper;
 import com.markmzy.mywork.wx.dao.TbUserMapper;
 import com.markmzy.mywork.wx.exception.MyException;
 import com.markmzy.mywork.wx.model.Message;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
@@ -48,6 +50,9 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
 
     @Autowired
     private MessageTask messageTask;
+
+    @Autowired
+    private TbDeptMapper tbDeptMapper;
 
     @Override
     public String searchOpenId(String code)
@@ -143,5 +148,30 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
     public HashMap searchUserSummary(int userId)
     {
         return tbUserMapper.searchUserSummary(userId);
+    }
+
+    @Override
+    public ArrayList<HashMap> searchUserGroupByDept(String keyword)
+    {
+        ArrayList<HashMap> list1 = tbDeptMapper.searchDeptMembers(keyword);
+        ArrayList<HashMap> list2 = tbUserMapper.searchUserGroupByDept(keyword);
+
+        for(HashMap map1 : list1)
+        {
+            long deptId = (Long) map1.get("id");
+            ArrayList members = new ArrayList();
+            for(HashMap map2 : list2)
+            {
+                long id = (Long) map2.get("deptId");
+                if(deptId == id)
+                {
+                    members.add(map2);
+                }
+            }
+
+            map1.put("members", members);
+        }
+
+        return list1;
     }
 }

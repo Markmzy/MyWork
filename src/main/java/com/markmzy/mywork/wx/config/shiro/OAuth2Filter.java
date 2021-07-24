@@ -126,7 +126,7 @@ public class OAuth2Filter extends AuthenticatingFilter
         } catch(Exception e) //如果解码失败
         {
             resp.setStatus(HttpStatus.SC_UNAUTHORIZED);
-            resp.getWriter().print("无效的令牌");
+            resp.getWriter().println("无效的令牌");
             return false;
         }
 

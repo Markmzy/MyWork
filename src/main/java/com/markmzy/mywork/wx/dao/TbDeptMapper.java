@@ -3,6 +3,9 @@ package com.markmzy.mywork.wx.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.markmzy.mywork.wx.model.TbDept;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * <p>
  * 部门表 Mapper 接口
@@ -13,5 +16,5 @@ import com.markmzy.mywork.wx.model.TbDept;
  */
 public interface TbDeptMapper extends BaseMapper<TbDept>
 {
-
+    ArrayList<HashMap> searchDeptMembers(String keyword);
 }

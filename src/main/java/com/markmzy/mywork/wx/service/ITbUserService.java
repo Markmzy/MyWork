@@ -3,6 +3,7 @@ package com.markmzy.mywork.wx.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.markmzy.mywork.wx.model.TbUser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -50,5 +51,10 @@ public interface ITbUserService extends IService<TbUser>
      * 查询用户概要信息
      */
     HashMap searchUserSummary(int userId);
+
+    /**
+     * 查询员工列表，按照部门分组
+     */
+    ArrayList<HashMap> searchUserGroupByDept(String keyword);
 
 }
