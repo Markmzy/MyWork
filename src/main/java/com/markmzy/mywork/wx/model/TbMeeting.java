@@ -9,8 +9,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 
 /**
@@ -41,19 +39,19 @@ public class TbMeeting implements Serializable
     private String title;
 
     @ApiModelProperty(value = "创建人ID")
-    private Long creatorId;
+    private Integer creatorId;
 
     @ApiModelProperty(value = "日期")
-    private LocalDate date;
+    private String date;
 
     @ApiModelProperty(value = "开会地点")
     private String place;
 
     @ApiModelProperty(value = "开始时间")
-    private LocalTime start;
+    private String start;
 
     @ApiModelProperty(value = "结束时间")
-    private LocalTime end;
+    private String end;
 
     @ApiModelProperty(value = "会议类型（1在线会议，2线下会议）")
     private Integer type;

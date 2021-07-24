@@ -1,5 +1,6 @@
 package com.markmzy.mywork.wx.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.markmzy.mywork.wx.config.shiro.JwtUtil;
 import com.markmzy.mywork.wx.controller.form.LoginForm;
 import com.markmzy.mywork.wx.controller.form.RegisterForm;
@@ -57,13 +58,20 @@ public class TbUserController
 
     @PostMapping("/login")
     @ApiOperation("用户登陆")
-    public R login(@Valid @RequestBody LoginForm form)
+    public R login(@Valid @RequestBody LoginForm form, @RequestHeader("token") String token)
     {
-        int id = tbUserService.login(form.getCode());
-        String token = jwtUtil.createToken(id);
-        Set<String> permissions = tbUserService.searchPermissions(id);
-        saveCacheToken(token, id);
-        return Objects.requireNonNull(R.ok("用户登陆成功").put("token", token)).put("permissions", permissions);
+        Integer id;
+        if (StrUtil.isNotEmpty(token)) {
+            jwtUtil.verifierToken(token);   //验证令牌的有效性
+            id = jwtUtil.getUserId(token);
+        } else {
+            id = tbUserService.login(form.getCode());
+            token = jwtUtil.createToken(id);
+            saveCacheToken(token, id);
+        }
+
+        Set<String> permsSet = tbUserService.searchPermissions(id);
+        return Objects.requireNonNull(R.ok("登陆成功").put("token", token)).put("permissions", permsSet);
     }
 
     private void saveCacheToken(String token, int id)

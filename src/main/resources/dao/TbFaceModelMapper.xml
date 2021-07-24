@@ -9,11 +9,6 @@
         <result column="face_model" property="faceModel"/>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, user_id, face_model
-    </sql>
-
     <select id="searchFaceModel" parameterType="int" resultType="java.lang.String">
         SELECT face_model
         FROM tb_face_model

@@ -17,11 +17,6 @@
         <result column="create_time" property="createTime"/>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, user_id, address, country, province, city, district, status, risk, date, create_time
-    </sql>
-
     <select id="haveCheckin" parameterType="hashmap" resultType="java.lang.Integer">
         SELECT id
         FROM tb_checkin

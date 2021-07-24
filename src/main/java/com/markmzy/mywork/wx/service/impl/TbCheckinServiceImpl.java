@@ -283,7 +283,11 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
         {
             String date = one.toString("yyyy-MM-dd");
             String type = "工作日";
-            if(one.isWeekend())
+            if(one.dayOfWeek() == 7 && one.weekOfMonth() % 2 == 1) //周六, 分大小周
+            {
+                type = "节假日";
+            }
+            if(one.dayOfWeek() == 1) //周天
             {
                 type = "节假日";
             }

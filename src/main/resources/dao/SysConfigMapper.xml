@@ -11,11 +11,6 @@
         <result column="remark" property="remark"/>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, param_key, param_value, status, remark
-    </sql>
-
     <select id="selectAllParam" resultType="com.markmzy.mywork.wx.model.SysConfig">
         SELECT param_key, param_value
         FROM sys_config

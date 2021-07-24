@@ -10,9 +10,4 @@
         <result column="action_id" property="actionId"/>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, permission_name, module_id, action_id
-    </sql>
-
 </mapper>

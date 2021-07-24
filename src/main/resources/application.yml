@@ -13,6 +13,8 @@ spring:
   devtools: #热部署
     livereload:
       enabled: true
+    restart:
+      enabled: true
 
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

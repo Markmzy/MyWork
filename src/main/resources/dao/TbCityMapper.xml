@@ -9,11 +9,6 @@
         <result column="code" property="code"/>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, city, code
-    </sql>
-
     <select id="searchCode" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT code
         FROM tb_city
