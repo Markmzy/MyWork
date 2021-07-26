@@ -61,7 +61,7 @@ class MyWorkApplicationTests
             meeting.setMembers("[2,3]");
             meeting.setDesc("会议研讨Emos项目上线测试");
             meeting.setInstanceId(IdUtil.simpleUUID());
-            meeting.setStatus(3);
+            meeting.setStatus(1);
             tbMeetingService.insertMeeting(meeting);
         }
     }

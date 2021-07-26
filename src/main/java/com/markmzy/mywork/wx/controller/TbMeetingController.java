@@ -5,8 +5,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.json.JSONUtil;
 import com.markmzy.mywork.wx.config.shiro.JwtUtil;
-import com.markmzy.mywork.wx.controller.form.InsertMeetingForm;
-import com.markmzy.mywork.wx.controller.form.SearchMeetingListByPageForm;
+import com.markmzy.mywork.wx.controller.form.*;
 import com.markmzy.mywork.wx.exception.MyException;
 import com.markmzy.mywork.wx.model.TbMeeting;
 import com.markmzy.mywork.wx.service.ITbMeetingService;
@@ -92,5 +91,56 @@ public class TbMeetingController
         meeting.setStatus(1);
         tbMeetingService.insertMeeting(meeting);
         return R.ok().put("result", "添加会议成功");
+    }
+
+    @PostMapping("/searchMeetingById")
+    @ApiOperation("根据会议id查询会议")
+    @RequiresPermissions(value = {"ROOT", "MEETING:SELECT"}, logical = Logical.OR)
+    public R searchMeetingById(@Valid @RequestBody SearchMeetingByIdForm form, @RequestHeader("token") String token)
+    {
+        HashMap map = tbMeetingService.searchMeetingById(form.getId());
+        return R.ok().put("result", map);
+    }
+
+    @PostMapping("/updateMeeting")
+    @ApiOperation("修改会议")
+    @RequiresPermissions(value = {"ROOT", "MEETING:UPDATE"}, logical = Logical.OR)
+    public R updateMeeting(@Valid @RequestBody UpdateMeetingForm form, @RequestHeader("token") String token)
+    {
+        if(form.getType() == 2 && (form.getPlace() == null || form.getPlace().length() == 0))
+        {
+            throw new MyException("线下会议地点不能为空");
+        }
+        DateTime d1 = DateUtil.parse(form.getDate() + " " + form.getStart() + ":00");
+        DateTime d2 = DateUtil.parse(form.getDate() + " " + form.getEnd() + ":00");
+        if(d2.isBeforeOrEquals(d1))
+        {
+            throw new MyException("结束时间必须大于开始时间");
+        }
+        if(!JSONUtil.isJsonArray(form.getMembers()))
+        {
+            throw new MyException("members不是JSON数组");
+        }
+
+        HashMap map = new HashMap();
+        map.put("id", form.getId());
+        map.put("title", form.getTitle());
+        map.put("date", form.getDate());
+        map.put("place", form.getPlace());
+        map.put("start", form.getStart() + ":00");
+        map.put("end", form.getEnd() + ":00");
+        map.put("type", form.getType());
+        map.put("members", form.getMembers());
+        map.put("desc", form.getDesc());
+        tbMeetingService.updateMeeting(map);
+        return R.ok().put("result", "修改会议成功");
+    }
+
+    @PostMapping("/deleteMeetingById")
+    @ApiOperation("根据ID删除会议")
+    @RequiresPermissions(value = {"ROOT", "MEETING:DELETE"}, logical = Logical.OR)
+    public R deleteMeetingById(@Valid @RequestBody DeleteMeetingByIdForm form){
+        tbMeetingService.deleteMeetingById(form.getId());
+        return R.ok().put("result","删除会议成功");
     }
 }

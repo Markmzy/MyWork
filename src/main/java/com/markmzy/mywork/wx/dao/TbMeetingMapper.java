@@ -20,5 +20,15 @@ public interface TbMeetingMapper extends BaseMapper<TbMeeting>
 
     ArrayList<HashMap> searchMeetingListByPage(HashMap param);
 
-    TbMeeting searchMeetingById(int id);
+    HashMap searchMeetingById(int id);
+
+    ArrayList<HashMap> searchMeetingMembers(int id);
+
+    int updateMeeting(HashMap param);
+
+    int deleteMeetingById(int id);
+
+
+
+
 }

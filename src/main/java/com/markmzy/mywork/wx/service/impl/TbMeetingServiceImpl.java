@@ -63,4 +63,29 @@ public class TbMeetingServiceImpl extends ServiceImpl<TbMeetingMapper, TbMeeting
         }
         return resultList;
     }
+
+    @Override
+    public HashMap searchMeetingById(int id)
+    {
+        HashMap map = tbMeetingMapper.searchMeetingById(id);
+        ArrayList<HashMap> list = tbMeetingMapper.searchMeetingMembers(id);
+        map.put("members", list);
+        return map;
+    }
+
+    @Override
+    public void updateMeeting(HashMap param)
+    {
+        int row = tbMeetingMapper.updateMeeting(param);
+        if(row != 1)
+            throw new MyException("会议更新失败");
+    }
+
+    @Override
+    public void deleteMeetingById(int id)
+    {
+        int row = tbMeetingMapper.deleteMeetingById(id);
+        if(row != 1)
+            throw new MyException("会议删除失败");
+    }
 }
