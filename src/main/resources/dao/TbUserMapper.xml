@@ -144,4 +144,11 @@
         </foreach>
     </select>
 
+    <select id="searchMemberEmail" resultType="java.lang.String">
+        SELECT email
+        FROM tb_user
+        WHERE id = #{id}
+          AND status = 1
+    </select>
+
 </mapper>

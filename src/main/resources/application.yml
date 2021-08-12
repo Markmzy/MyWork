@@ -93,3 +93,8 @@ wx:
   app-id: wx95d20548577d0986
   app-secret: 2601953310d4736d04d2ccd06b0ec83a
   app-superCode: 19970320
+
+trtc:
+  appid: 1400552801
+  key: 4903a4defa519eb45826847bd1a0836efafee8bc400df3c65d30ef6d791c3900
+  expire: 86400

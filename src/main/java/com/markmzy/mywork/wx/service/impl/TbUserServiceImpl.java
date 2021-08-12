@@ -177,4 +177,10 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
     {
         return tbUserMapper.searchMembers(param);
     }
+
+    @Override
+    public String searchMemberEmail(int id)
+    {
+        return tbUserMapper.searchMemberEmail(id);
+    }
 }

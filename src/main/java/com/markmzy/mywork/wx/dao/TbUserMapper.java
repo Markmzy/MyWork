@@ -38,4 +38,6 @@ public interface TbUserMapper extends BaseMapper<TbUser>
 
     ArrayList<HashMap> searchMembers(List param);
 
+    String searchMemberEmail(int id);
+
 }

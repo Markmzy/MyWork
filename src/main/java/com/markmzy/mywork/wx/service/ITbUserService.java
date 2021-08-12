@@ -63,4 +63,9 @@ public interface ITbUserService extends IService<TbUser>
      */
     ArrayList<HashMap> searchMembers(List param);
 
+    /**
+     * 查询用户Email
+     */
+    String searchMemberEmail(int id);
+
 }

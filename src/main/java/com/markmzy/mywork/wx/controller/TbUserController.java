@@ -3,6 +3,7 @@ package com.markmzy.mywork.wx.controller;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.markmzy.mywork.wx.config.shiro.JwtUtil;
+import com.markmzy.mywork.wx.config.tencent.TLSSigAPIv2;
 import com.markmzy.mywork.wx.controller.form.LoginForm;
 import com.markmzy.mywork.wx.controller.form.RegisterForm;
 import com.markmzy.mywork.wx.controller.form.SearchMembersForm;
@@ -48,6 +49,15 @@ public class TbUserController
 
     @Value("${mywork.jwt.cache-expire}")
     private int cacheExpire;
+
+    @Value("${trtc.appid}")
+    private Integer appid;
+
+    @Value("${trtc.key}")
+    private String key;
+
+    @Value("${trtc.expire}")
+    private Integer expire;
 
     @PostMapping("/register")
     @ApiOperation("用户注册")
@@ -116,6 +126,16 @@ public class TbUserController
         List param = JSONUtil.parseArray(form.getMembers()).toList(Integer.class);
         ArrayList list = tbUserService.searchMembers(param);
         return R.ok().put("result", list);
+    }
+
+    @GetMapping("/genUserSig")
+    @ApiOperation("生成用户签名")
+    public R genUserSig(@RequestHeader("token") String token) {
+        int id = jwtUtil.getUserId(token);
+        String email = tbUserService.searchMemberEmail(id);
+        TLSSigAPIv2 api = new TLSSigAPIv2(appid, key);
+        String userSig = api.genUserSig(email, expire);
+        return R.ok().put("userSig", userSig).put("email", email);
     }
 
 }

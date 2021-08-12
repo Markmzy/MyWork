@@ -40,7 +40,7 @@ public class MessageTask
 
             HashMap map = new HashMap();
             map.put("messageId", id);
-            AMQP.BasicProperties properties = new AMQP.BasicProperties().builder().headers(map).build();
+            AMQP.BasicProperties properties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder().headers(map).build();
             channel.basicPublish("", topic, properties, message.getMsg().getBytes());
 
             log.debug("消息发送成功");
